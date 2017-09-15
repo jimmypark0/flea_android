@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/flae_android.iml" filepath="$PROJECT_DIR$/flae_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/flea_android.iml" filepath="$PROJECT_DIR$/flea_android.iml" />
     </modules>
   </component>
 </project>

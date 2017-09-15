@@ -47,31 +47,32 @@ public class MainActivity extends AppCompatActivity {
         beaconManager.setRangingListener(new BeaconManager.RangingListener() {
             @Override
             public void onBeaconsDiscovered(Region region, List<Beacon> list) {
-                Beacon currentBeacon = list.get(0);
+                for (int i = 0; i < list.size(); i++) {
 
-                tvId.setText(currentBeacon.getRssi() + " / Minor : " + currentBeacon.getMinor());
-                tvId.append("\n" + map);
+                    Beacon currentBeacon = list.get(i);
+                    tvId.setText(currentBeacon.getRssi() + " / Minor : " + currentBeacon.getMinor());
+                    tvId.append("\n" + map);
 
-                if (!map.get(currentBeacon.getMinor()) & currentBeacon.getRssi() > -65) {
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                    if (!map.get(currentBeacon.getMinor()) & currentBeacon.getRssi() > -70) {
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
 
-                    map.put(currentBeacon.getMinor(), true);
+                        map.put(currentBeacon.getMinor(), true);
 
-                    dialog.setTitle("알림")
-                            .setMessage(currentBeacon.getMinor() + " 비콘이 연결되었습니다.")
-                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // Test
-                                }
-                            })
-                            .create().show();
+                        dialog.setTitle("알림")
+                                .setMessage(currentBeacon.getMinor() + " 비콘이 연결되었습니다.")
+                                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // Test
+                                    }
+                                })
+                                .create().show();
 
-                } else if (map.get(currentBeacon.getMinor()) & currentBeacon.getRssi() <= -65) {
-                    Toast.makeText(MainActivity.this, currentBeacon.getMinor() + " 비콘 연결이 끊어졌습니다.", Toast.LENGTH_SHORT).show();
-                    map.put(currentBeacon.getMinor(), false);
+                    } else if (map.get(currentBeacon.getMinor()) & currentBeacon.getRssi() <= -70) {
+                        Toast.makeText(MainActivity.this, currentBeacon.getMinor() + " 비콘 연결이 끊어졌습니다.", Toast.LENGTH_SHORT).show();
+                        map.put(currentBeacon.getMinor(), false);
+                    }
                 }
-
             }
         });
     }
