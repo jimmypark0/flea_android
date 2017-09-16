@@ -13,6 +13,7 @@ import android.os.Message;
 import com.estimote.sdk.Beacon;
 import com.estimote.sdk.BeaconManager;
 import com.estimote.sdk.Region;
+import com.flea.android.fleaandroid.utils.BaseApplicationClass;
 
 import java.util.HashMap;
 import java.util.List;
@@ -58,7 +59,7 @@ public class BeaconThread extends Thread {
                 for (int i = 0; i < list.size(); i++) {
                     Beacon currentBeacon = list.get(i);
 
-                    if (!mBeaconConnectMap.get(currentBeacon.getMinor()) & currentBeacon.getRssi() > -70) {
+                    if (!mBeaconConnectMap.get(currentBeacon.getMinor()) & currentBeacon.getRssi() > BEACONS_RSSI) {
                         mBeaconConnectMap.put(currentBeacon.getMinor(), true);
                         timer = System.currentTimeMillis();
 
@@ -70,7 +71,7 @@ public class BeaconThread extends Thread {
                         mHandler.sendMessage(msg);
 
 
-                    } else if (mBeaconConnectMap.get(currentBeacon.getMinor()) & currentBeacon.getRssi() <= -70) {
+                    } else if (mBeaconConnectMap.get(currentBeacon.getMinor()) & currentBeacon.getRssi() <= BEACONS_RSSI) {
                         mBeaconConnectMap.put(currentBeacon.getMinor(), false);
 
                         Message msg = new Message();
