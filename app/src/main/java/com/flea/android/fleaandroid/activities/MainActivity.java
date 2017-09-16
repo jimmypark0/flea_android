@@ -11,15 +11,23 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.flea.android.fleaandroid.R;
 import com.flea.android.fleaandroid.utils.BaseActivity;
+import com.flea.android.fleaandroid.utils.MainDialog;
 
 public class MainActivity
         extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener{
+        implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout mDrawerLayout;
+    private MainDialog mMainDialog;
+    private final View.OnClickListener dialogButtonListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            mMainDialog.dismiss();
+        }
+    };
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -70,8 +78,20 @@ public class MainActivity
         final NavigationView leftNavigationView = findViewById(R.id.left_navigation);
         leftNavigationView.setNavigationItemSelectedListener(this);
 
-
+        mMainDialog = new MainDialog(this,
+                "2017 취업박람회",
+                "35년간 유학업계를 선도하며 \n" +
+                        "변함없이 안심유학의 길을 걸어온 종로유학원이 \n" +
+                        "오는 9월 16일(토)에 코엑스에서 \n" +
+                        "2017 해외유학박람회를 개최합니다.\n" +
+                        "많은 우수 학교들이 참가하는 이번 박람회를 통해 어학연수, 해외대학 진학, 초중고 유학 등 다양한 프로그램 정보를 만나실 수 있습니다.\n" +
+                        "\n" +
+                        "총 10개국 어학연수 및 유학 상담이 가능합니다. 국가별 전문가와 1:1 상담을 받아보세요.",
+                dialogButtonListener);
+        mMainDialog.show();
     }
+
+
 
     @Override
     public void onBackPressed() {
