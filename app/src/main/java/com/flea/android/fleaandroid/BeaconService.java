@@ -4,7 +4,6 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
-import android.util.Log;
 
 import com.estimote.sdk.Beacon;
 import com.estimote.sdk.BeaconManager;
@@ -13,6 +12,8 @@ import com.estimote.sdk.Region;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.flea.android.fleaandroid.BaseApplicationClass.*;
+
 public class BeaconService extends Service {
     public class MainServiceBinder extends Binder {
         BeaconService getService() {
@@ -20,12 +21,10 @@ public class BeaconService extends Service {
         }
     }
 
-    private BeaconManager beaconManager;
-    private static final Region ALL_ESTIMOTE_BEACONS_REGION = new Region("rid", null, null, null);
-    private static final int beaconMinors[] = {38547, 16501, 978};
+    private BeaconManager mBeaconManager;
     private final IBinder mBinder = new MainServiceBinder();
+    HashMap<Integer, Boolean> mBeaconConnectMap = new HashMap<Integer, Boolean>();
 
-    HashMap<Integer, Boolean> beaconConnectMap = new HashMap<Integer, Boolean>();
     @Override
     public IBinder onBind(Intent intent) {
         // TODO: Return the communication channel to the service.
@@ -35,34 +34,34 @@ public class BeaconService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        beaconManager = new BeaconManager(getApplicationContext());
+        mBeaconManager = new BeaconManager(getApplicationContext());
 
-        beaconManager.connect(new BeaconManager.ServiceReadyCallback() {
+        mBeaconManager.connect(new BeaconManager.ServiceReadyCallback() {
             @Override
             public void onServiceReady() {
-                beaconManager.startRanging(ALL_ESTIMOTE_BEACONS_REGION);
+                mBeaconManager.startRanging(ALL_ESTIMOTE_BEACONS_REGION);
             }
         });
 
-        for (int i = 0; i < beaconMinors.length; i++) {
-            beaconConnectMap.put(beaconMinors[i], false);
+        for (int i = 0; i < ALL_ESTIMOTE_BEACONS_MINOR.length; i++) {
+            mBeaconConnectMap.put(ALL_ESTIMOTE_BEACONS_MINOR[i], false);
         }
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        beaconManager.setRangingListener(new BeaconManager.RangingListener() {
+        mBeaconManager.setRangingListener(new BeaconManager.RangingListener() {
             @Override
             public void onBeaconsDiscovered(Region region, List<Beacon> list) {
                 for (int i = 0; i < list.size(); i++) {
 
                     Beacon currentBeacon = list.get(i);
 
-                    if (!beaconConnectMap.get(currentBeacon.getMinor()) & currentBeacon.getRssi() > -70) {
-                        beaconConnectMap.put(currentBeacon.getMinor(), true);
+                    if (!mBeaconConnectMap.get(currentBeacon.getMinor()) & currentBeacon.getRssi() > -70) {
+                        mBeaconConnectMap.put(currentBeacon.getMinor(), true);
 
-                    } else if (beaconConnectMap.get(currentBeacon.getMinor()) & currentBeacon.getRssi() <= -70) {
-                        beaconConnectMap.put(currentBeacon.getMinor(), false);
+                    } else if (mBeaconConnectMap.get(currentBeacon.getMinor()) & currentBeacon.getRssi() <= -70) {
+                        mBeaconConnectMap.put(currentBeacon.getMinor(), false);
                     }
                 }
             }
@@ -74,7 +73,7 @@ public class BeaconService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        beaconManager.stopRanging(ALL_ESTIMOTE_BEACONS_REGION);
+        mBeaconManager.stopRanging(ALL_ESTIMOTE_BEACONS_REGION);
     }
 
     @Override
