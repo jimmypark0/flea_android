@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.util.Log;
 
 import com.estimote.sdk.Beacon;
 import com.estimote.sdk.BeaconManager;
@@ -27,34 +28,10 @@ public class BeaconService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
-        return mBinder;
-    }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        mBeaconManager = new BeaconManager(getApplicationContext());
-
-        mBeaconManager.connect(new BeaconManager.ServiceReadyCallback() {
-            @Override
-            public void onServiceReady() {
-                mBeaconManager.startRanging(ALL_ESTIMOTE_BEACONS_REGION);
-            }
-        });
-
-        for (int i = 0; i < ALL_ESTIMOTE_BEACONS_MINOR.length; i++) {
-            mBeaconConnectMap.put(ALL_ESTIMOTE_BEACONS_MINOR[i], false);
-        }
-    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
         mBeaconManager.setRangingListener(new BeaconManager.RangingListener() {
             @Override
             public void onBeaconsDiscovered(Region region, List<Beacon> list) {
                 for (int i = 0; i < list.size(); i++) {
-
                     Beacon currentBeacon = list.get(i);
 
                     if (!mBeaconConnectMap.get(currentBeacon.getMinor()) & currentBeacon.getRssi() > -70) {
@@ -66,7 +43,30 @@ public class BeaconService extends Service {
                 }
             }
         });
+        return mBinder;
+    }
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        mBeaconManager = new BeaconManager(getApplicationContext());
+        mBeaconManager.connect(new BeaconManager.ServiceReadyCallback() {
+            @Override
+            public void onServiceReady() {
+                mBeaconManager.startRanging(ALL_ESTIMOTE_BEACONS_REGION);
+                Log.e("LOG", "startRanging()");
+            }
+        });
+
+        for (int i = 0; i < ALL_ESTIMOTE_BEACONS_MINOR.length; i++) {
+            mBeaconConnectMap.put(ALL_ESTIMOTE_BEACONS_MINOR[i], false);
+        }
+
+        Log.e("LOG", "onCreate()");
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
         return super.onStartCommand(intent, flags, startId);
     }
 

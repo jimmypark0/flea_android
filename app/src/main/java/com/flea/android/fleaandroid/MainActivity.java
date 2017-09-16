@@ -1,7 +1,14 @@
 package com.flea.android.fleaandroid;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.widget.Toast;
+
+import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -9,14 +16,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+
+import com.estimote.sdk.SystemRequirementsChecker;
 
 public class MainActivity
         extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout mDrawerLayout;
+    BeaconThread mBeaconThread;
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -64,7 +74,12 @@ public class MainActivity
 
         final NavigationView leftNavigationView = findViewById(R.id.left_navigation);
         leftNavigationView.setNavigationItemSelectedListener(this);
+
+        SystemRequirementsChecker.checkWithDefaultDialogs(this);
+
+        new BeaconThread(this).start();
     }
+
 
     @Override
     public void onBackPressed() {
