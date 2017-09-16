@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/map"
+        android:title="MAP"/>
+    <item
+        android:id="@+id/event_list"
+        android:title="이벤트들"/>
+    <item
+        android:id="@+id/vibration"
+        android:title="진동"/>
+    <item
+        android:id="@+id/notification"
+        android:title="알림"/>
+</menu>
