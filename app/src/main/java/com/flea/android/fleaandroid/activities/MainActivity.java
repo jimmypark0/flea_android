@@ -93,16 +93,6 @@ public class MainActivity
         mTextViewTitle = findViewById(R.id.tv_main_title);
         mTextViewDescription = findViewById(R.id.tv_main_description);
         mTextViewHashTags = findViewById(R.id.tv_main_hash_tags);
-        /*
-        mTextViewTitle.setText("우아한 형제들");
-        mTextViewDescription.setText("‘좋은 음식을 먹고 싶은 곳에서’ 라는\n" +
-                "비전 아래 배달의민족, 배민라이더스, 배민찬 등을 서비스하며 종합 ‘푸드테크’ 기업으로\n" +
-                "나아가고 있습니다.\n" +
-                "\n" +
-                "우리는 ‘구성원을 행복하게 만들면 행복한 구성원이 더 좋은 서비스를 만든다’ 는 믿음으로 성장의 중심에는 코드 덩어리가 아닌 \u0003가치를 만들고 스스로 가치를 높이며 일하는\n" +
-                "우아한 개발자들이 있습니다.");
-        mTextViewHashTags.setText("#개발 #디자인 #기획 #해커톤 #오픈소스");
-        */
 
         mTextViewRecommend1 = findViewById(R.id.tv_recommend_1);
         mTextViewRecommend2 = findViewById(R.id.tv_recommend_2);
@@ -131,6 +121,7 @@ public class MainActivity
         myScrollingValuePicker.setViewMultipleSize(0.9f);
         myScrollingValuePicker.setMaxValue(0, 10);
         myScrollingValuePicker.setValueTypeMultiple(1);
+        myScrollingValuePicker.setInitValue(4);
 
         Handler handler = new Handler() {
             public void handleMessage(Message msg) {
@@ -144,18 +135,17 @@ public class MainActivity
                             mTextViewTitle.setText(BaseApplicationClass.TextViewTitle[i]);
                             mTextViewDescription.setText(BaseApplicationClass.TextViewDescription[i]);
                             mTextViewHashTags.setText(BaseApplicationClass.TextViewHashTags[i]);
-                            myScrollingValuePicker.setInitValue(BaseApplicationClass.ScrollNumber[i]);
                         }
                     }
                 } else {
-                    //TODO FirebaseDatabase
+                    Log.e("LOG", "msg.arg1 is bigger than 0");
                 }
 
                 Log.e("LOG", msg.arg1 + " // " + msg.arg2 + " //  " + msg.obj.toString());
             }
         };
 
-        //new BeaconThread(handler, this).start();
+        new BeaconThread(handler, this).start();
     }
 
     private void showFabChild() {
