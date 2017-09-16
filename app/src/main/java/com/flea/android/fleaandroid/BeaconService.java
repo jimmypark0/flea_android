@@ -2,7 +2,9 @@ package com.flea.android.fleaandroid;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.IBinder;
+import android.util.Log;
 
 import com.estimote.sdk.Beacon;
 import com.estimote.sdk.BeaconManager;
@@ -12,17 +14,22 @@ import java.util.HashMap;
 import java.util.List;
 
 public class BeaconService extends Service {
+    public class MainServiceBinder extends Binder {
+        BeaconService getService() {
+            return BeaconService.this;
+        }
+    }
+
     private BeaconManager beaconManager;
     private static final Region ALL_ESTIMOTE_BEACONS_REGION = new Region("rid", null, null, null);
     private static final int beaconMinors[] = {38547, 16501, 978};
-    //private final IBinder mBinder = new LocalServiceBinder();
+    private final IBinder mBinder = new MainServiceBinder();
 
     HashMap<Integer, Boolean> beaconConnectMap = new HashMap<Integer, Boolean>();
-
     @Override
     public IBinder onBind(Intent intent) {
         // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
+        return mBinder;
     }
 
     @Override
@@ -68,5 +75,10 @@ public class BeaconService extends Service {
     public void onDestroy() {
         super.onDestroy();
         beaconManager.stopRanging(ALL_ESTIMOTE_BEACONS_REGION);
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        return super.onUnbind(intent);
     }
 }
