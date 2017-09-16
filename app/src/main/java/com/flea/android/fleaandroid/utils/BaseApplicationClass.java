@@ -47,6 +47,8 @@ public class BaseApplicationClass extends Application {
             "안정적인 판매 활로를 찾아드리고 싶었습니다.\n"};
     public static final String TextViewHashTags[] = {"#개발 #디자인 #기획 #해커톤 #오픈소스", "#개발 #기획 #회계", "#개발 #기획 #디자인"};
 
+    public static final int ScrollNumber[] = {8, 2, 5};
+
     @Override
     public void onCreate() {
         super.onCreate();

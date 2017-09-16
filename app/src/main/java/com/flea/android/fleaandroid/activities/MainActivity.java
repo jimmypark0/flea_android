@@ -127,11 +127,10 @@ public class MainActivity
         mMainDialog.show();
 
 
-        ScrollingValuePicker myScrollingValuePicker = findViewById(R.id.myScrollingValuePicker);
+        final ScrollingValuePicker myScrollingValuePicker = findViewById(R.id.myScrollingValuePicker);
         myScrollingValuePicker.setViewMultipleSize(0.9f);
         myScrollingValuePicker.setMaxValue(0, 10);
         myScrollingValuePicker.setValueTypeMultiple(1);
-        myScrollingValuePicker.setInitValue(9);
 
         Handler handler = new Handler() {
             public void handleMessage(Message msg) {
@@ -141,9 +140,11 @@ public class MainActivity
                 if (msg.arg1 < 0) {
                     for (int i = 0; i < BaseApplicationClass.ALL_ESTIMOTE_BEACONS_MINOR.length; i++) {
                         if (msg.arg2 == BaseApplicationClass.ALL_ESTIMOTE_BEACONS_MINOR[i]) {
+                            findViewById(R.id.tv_main_intro).setVisibility(View.GONE);
                             mTextViewTitle.setText(BaseApplicationClass.TextViewTitle[i]);
                             mTextViewDescription.setText(BaseApplicationClass.TextViewDescription[i]);
                             mTextViewHashTags.setText(BaseApplicationClass.TextViewHashTags[i]);
+                            myScrollingValuePicker.setInitValue(BaseApplicationClass.ScrollNumber[i]);
                         }
                     }
                 } else {
