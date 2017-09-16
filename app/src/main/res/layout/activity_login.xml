@@ -5,15 +5,24 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:padding="20dp"
-    tools:context="com.flea.android.fleaandroid.LoginActivity">
+    tools:context="com.flea.android.fleaandroid.activities.LoginActivity">
 
     <LinearLayout
+        android:id="@+id/ln_layout_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="40dp"
+            android:src="@drawable/neckst" />
+
         <EditText
+            android:id="@+id/etx_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawablePadding="10dp"
@@ -23,6 +32,7 @@
             android:textColorHint="@color/white" />
 
         <EditText
+            android:id="@+id/etx_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawablePadding="10dp"

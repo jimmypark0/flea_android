@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.flea.android.fleaandroid.SearchListActivity">
+    tools:context="com.flea.android.fleaandroid.activities.SearchListActivity">
 
 </android.support.constraint.ConstraintLayout>

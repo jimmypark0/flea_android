@@ -11,6 +11,7 @@
     <style name="AppTheme.NoTitleBar">
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
 
     <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
