@@ -13,7 +13,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 public class BaseApplicationClass extends Application {
     public static final Region ALL_ESTIMOTE_BEACONS_REGION = new Region("rid", null, null, null);
     public static final int ALL_ESTIMOTE_BEACONS_MINOR[] = {38547, 16501, 978};
-    public static final int BEACONS_RSSI = -60;
+    public static final int BEACONS_RSSI = -75;
 
     //
     public static final String TITLE =  "2017 취업박람회";
