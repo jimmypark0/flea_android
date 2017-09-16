@@ -21,12 +21,36 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.estimote.sdk.SystemRequirementsChecker;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class MainActivity
         extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout mDrawerLayout;
-    BeaconThread mBeaconThread;
+
+    Handler mHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            Data data = new Data();
+
+            //database = FirebaseDatabase.getInstance();
+            //myRef = database.getReference("beacon");
+
+            data.timer = msg.arg1;
+            data.beacon = msg.arg2;
+            data.map = (HashMap) msg.obj;
+
+            if (data.timer < 0) {
+                startActivity(new Intent(getApplicationContext(), SearchListActivity.class));
+            } else {
+
+            }
+
+            Log.e("LOG", msg.arg1 + " // " + msg.arg2 + " //  " + msg.obj.toString());
+        }
+    };
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -77,7 +101,7 @@ public class MainActivity
 
         SystemRequirementsChecker.checkWithDefaultDialogs(this);
 
-        new BeaconThread(this).start();
+        new BeaconThread(mHandler, this).start();
     }
 
 
@@ -102,3 +126,4 @@ public class MainActivity
         return super.onOptionsItemSelected(item);
     }
 }
+

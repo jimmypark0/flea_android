@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
+import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
@@ -25,11 +26,15 @@ import static com.flea.android.fleaandroid.BaseApplicationClass.*;
 public class BeaconThread extends Thread {
     private static final String TAG = "BeaconThread";
     private BeaconManager mBeaconManager;
+    private long timer;
+
     HashMap<Integer, Boolean> mBeaconConnectMap = new HashMap<Integer, Boolean>();
-    BeaconHandler mHanndler = new BeaconHandler();
+    //BeaconHandler mHandler = new BeaconHandler();
+    Handler mHandler;
 
+    public BeaconThread(Handler handler, Activity activity) {
+        mHandler = handler;
 
-    public BeaconThread(Activity activity) {
         mBeaconManager = new BeaconManager(activity);
         mBeaconManager.connect(new BeaconManager.ServiceReadyCallback() {
             @Override
@@ -56,15 +61,25 @@ public class BeaconThread extends Thread {
 
                     if (!mBeaconConnectMap.get(currentBeacon.getMinor()) & currentBeacon.getRssi() > -70) {
                         mBeaconConnectMap.put(currentBeacon.getMinor(), true);
+                        timer = System.currentTimeMillis();
 
                         Message msg = new Message();
+                        msg.arg1 = -1;
+                        msg.arg2 = currentBeacon.getMinor();
                         msg.obj = mBeaconConnectMap;
 
-                        mHanndler.sendMessage(msg);
+                        mHandler.sendMessage(msg);
+
 
                     } else if (mBeaconConnectMap.get(currentBeacon.getMinor()) & currentBeacon.getRssi() <= -70) {
                         mBeaconConnectMap.put(currentBeacon.getMinor(), false);
-                        // TODO timer send
+
+                        Message msg = new Message();
+                        msg.arg1 = (int) (System.currentTimeMillis() - timer);
+                        msg.arg2 = currentBeacon.getMinor();
+                        msg.obj = mBeaconConnectMap;
+
+                        mHandler.sendMessage(msg);
                     }
                 }
             }
