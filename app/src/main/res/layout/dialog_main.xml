@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
+    android:padding="30dp"
     android:orientation="vertical">
 
     <TextView
@@ -10,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:text="우아한 형제들"
+        android:text="Title"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold" />
@@ -20,16 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="'좋은 음식을 먹고 싶은 곳에서' 라 비전 아래 배달의민족, 배달라이더스, 배민찬등을 서비스하며 종합 '푸드테크'기업으로 나아가고 있습니다. 우리는 '구성원을 행복하게 만들면 행복한 구성원이 더 좋은 서비스를 만든다'는 믿음으로 성장의 중심에는 코드덩이라가 아닌 가치를 만들고 스스로 가치를 높이며 일하는 우아한 개발자들이 있습니다."
-        android:textColor="@color/white"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/tv_dialog_hash_tags"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="#개발 #디자인 #기획 #해커톤 #오픈소스"
+        android:text="Description"
         android:textColor="@color/white"
         android:textSize="16sp" />
 
@@ -39,5 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
+        android:background="@drawable/attr_default_button"
+        android:textColor="@color/white"
         android:text="시작하기" />
 </LinearLayout>
