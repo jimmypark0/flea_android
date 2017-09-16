@@ -38,6 +38,7 @@
             android:drawablePadding="10dp"
             android:drawableStart="@drawable/ic_lock_outline_24dp"
             android:hint="비밀번호를 입력해주세요."
+            android:inputType="textPassword"
             android:textColor="@color/white"
             android:textColorHint="@color/white" />
 

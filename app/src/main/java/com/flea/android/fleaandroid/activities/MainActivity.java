@@ -139,6 +139,7 @@ public class MainActivity
         myScrollingValuePicker.setViewMultipleSize(0.9f);
         myScrollingValuePicker.setMaxValue(0, 10);
         myScrollingValuePicker.setValueTypeMultiple(1);
+        myScrollingValuePicker.setInitValue(9);
 
         Handler handler = new Handler() {
             public void handleMessage(Message msg) {
@@ -187,7 +188,7 @@ public class MainActivity
             }
         };
 
-        new BeaconThread(handler, this).start();
+        //new BeaconThread(handler, this).start();
     }
 
     private void showFabChild() {

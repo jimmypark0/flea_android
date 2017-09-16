@@ -3,6 +3,7 @@ package com.flea.android.fleaandroid.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 
 import com.estimote.sdk.SystemRequirementsChecker;
 import com.flea.android.fleaandroid.R;
@@ -24,6 +25,8 @@ public class LoginActivity extends BaseActivity {
     }
 
     public void customOnClick(View view) {
+        ((EditText) findViewById(R.id.etx_id)).setText("A-COEX");
+        ((EditText) findViewById(R.id.etx_password)).setText("1234");
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
