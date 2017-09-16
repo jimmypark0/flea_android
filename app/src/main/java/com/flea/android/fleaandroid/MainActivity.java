@@ -15,6 +15,7 @@ import com.estimote.sdk.SystemRequirementsChecker;
 import java.util.HashMap;
 import java.util.List;
 
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 import static android.media.CamcorderProfile.get;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     HashMap<Integer, Boolean> connectCheckMap = new HashMap<Integer, Boolean>();
 
     private TextView tvId;
+    private long timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         tvId = (TextView) findViewById(R.id.tvId);
-
         beaconManager = new BeaconManager(getApplicationContext());
 
         for(int i = 0; i < minors.length; i++) {
@@ -58,19 +59,21 @@ public class MainActivity extends AppCompatActivity {
                         AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
 
                         connectCheckMap.put(currentBeacon.getMinor(), true);
+                        timer = System.currentTimeMillis();
 
                         dialog.setTitle("알림")
                                 .setMessage(currentBeacon.getMinor() + " 비콘이 연결되었습니다.")
                                 .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        // Test
+                                        // Do Nothing
                                     }
                                 })
                                 .create().show();
 
                     } else if (connectCheckMap.get(currentBeacon.getMinor()) & currentBeacon.getRssi() <= -70) {
-                        Toast.makeText(MainActivity.this, currentBeacon.getMinor() + " 비콘 연결이 끊어졌습니다.", Toast.LENGTH_SHORT).show();
+                        timer = System.currentTimeMillis() - timer;
+                        Toast.makeText(MainActivity.this, currentBeacon.getMinor() + " 비콘 연결이 끊어졌습니다. 연결시간(ms) : " + timer, Toast.LENGTH_SHORT).show();
                         connectCheckMap.put(currentBeacon.getMinor(), false);
                     }
                 }
