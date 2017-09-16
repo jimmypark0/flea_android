@@ -4,12 +4,12 @@
     <item
         android:id="@+id/action_map"
         android:icon="@drawable/ic_map_24dp"
-        android:title="MAP"
+        android:title="행사장 지도"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_event_list"
         android:icon="@drawable/ic_format_list_bulleted_24dp"
-        android:title="이벤트들"
+        android:title="이벤트"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_vibration"

@@ -22,6 +22,9 @@
             android:name=".activities.MainActivity"
             android:theme="@style/AppTheme.NoTitleBar" />
         <activity
+            android:name=".activities.MapActivity"
+            android:theme="@style/AppTheme.NoTitleBar" />
+        <activity
             android:name=".activities.SearchListActivity"
             android:theme="@style/AppTheme.NoTitleBar" />
         <activity

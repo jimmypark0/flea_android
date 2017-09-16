@@ -4,8 +4,7 @@
     xmlns:fab="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    android:orientation="vertical">
+    android:background="@color/colorPrimary">
 
     <RelativeLayout
         android:id="@+id/rl_layout_main"
@@ -69,7 +68,7 @@
             android:text="우아한 형제들"
             android:textColor="@color/white" />
     </RelativeLayout>
-    
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -45,7 +45,7 @@ public class MainActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_map:
-                Toast.makeText(getApplicationContext(), "Clicked MAP", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, MapActivity.class));
                 return true;
             case R.id.action_event_list:
                 Toast.makeText(getApplicationContext(), "Clicked 이벤트들", Toast.LENGTH_SHORT).show();
@@ -131,6 +131,7 @@ public class MainActivity
         myScrollingValuePicker.setViewMultipleSize(0.9f);
         myScrollingValuePicker.setMaxValue(0, 10);
         myScrollingValuePicker.setValueTypeMultiple(1);
+        myScrollingValuePicker.setInitValue(9);
 
         Handler handler = new Handler() {
             public void handleMessage(Message msg) {
@@ -153,7 +154,7 @@ public class MainActivity
             }
         };
 
-        new BeaconThread(handler, this).start();
+        //new BeaconThread(handler, this).start();
     }
 
     private void showFabChild() {

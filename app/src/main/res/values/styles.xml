@@ -17,4 +17,8 @@
     <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="color">@color/white</item>
     </style>
+
+    <style name="ToolbarColoredBackArrow" parent="AppTheme">
+        <item name="android:textColorSecondary">@color/white</item>
+    </style>
 </resources>
