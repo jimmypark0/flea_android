@@ -15,7 +15,7 @@ import com.estimote.sdk.SystemRequirementsChecker;
 import java.util.HashMap;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     /*private BeaconManager beaconManager;
     private static final Region ALL_ESTIMOTE_BEACONS_REGION = new Region("rid", null, null, null);
 
@@ -26,6 +26,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /*// Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+
+        myRef.setValue("Hello, World!");*/
 
         /*tvId = (TextView) findViewById(R.id.tvId);
 

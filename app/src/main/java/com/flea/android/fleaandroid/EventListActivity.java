@@ -3,7 +3,7 @@ package com.flea.android.fleaandroid;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class EventListActivity extends AppCompatActivity {
+public class EventListActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
