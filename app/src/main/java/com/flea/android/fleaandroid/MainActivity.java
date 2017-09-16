@@ -20,9 +20,10 @@ import static android.media.CamcorderProfile.get;
 public class MainActivity extends AppCompatActivity {
     private BeaconManager beaconManager;
     private static final Region ALL_ESTIMOTE_BEACONS_REGION = new Region("rid", null, null, null);
+    private static int minors[] = {38547, 16501, 978};
+    HashMap<Integer, Boolean> connectCheckMap = new HashMap<Integer, Boolean>();
 
     private TextView tvId;
-    HashMap<Integer, Boolean> map = new HashMap<Integer, Boolean>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +34,9 @@ public class MainActivity extends AppCompatActivity {
 
         beaconManager = new BeaconManager(getApplicationContext());
 
-        map.put(38547, false);
-        map.put(16501, false);
-        map.put(978, false);
+        for(int i = 0; i < minors.length; i++) {
+            connectCheckMap.put(minors[i], false);
+        }
 
         beaconManager.connect(new BeaconManager.ServiceReadyCallback() {
             @Override
@@ -51,12 +52,12 @@ public class MainActivity extends AppCompatActivity {
 
                     Beacon currentBeacon = list.get(i);
                     tvId.setText(currentBeacon.getRssi() + " / Minor : " + currentBeacon.getMinor());
-                    tvId.append("\n" + map);
+                    tvId.append("\n" + connectCheckMap);
 
-                    if (!map.get(currentBeacon.getMinor()) & currentBeacon.getRssi() > -70) {
+                    if (!connectCheckMap.get(currentBeacon.getMinor()) & currentBeacon.getRssi() > -70) {
                         AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
 
-                        map.put(currentBeacon.getMinor(), true);
+                        connectCheckMap.put(currentBeacon.getMinor(), true);
 
                         dialog.setTitle("알림")
                                 .setMessage(currentBeacon.getMinor() + " 비콘이 연결되었습니다.")
@@ -68,9 +69,9 @@ public class MainActivity extends AppCompatActivity {
                                 })
                                 .create().show();
 
-                    } else if (map.get(currentBeacon.getMinor()) & currentBeacon.getRssi() <= -70) {
+                    } else if (connectCheckMap.get(currentBeacon.getMinor()) & currentBeacon.getRssi() <= -70) {
                         Toast.makeText(MainActivity.this, currentBeacon.getMinor() + " 비콘 연결이 끊어졌습니다.", Toast.LENGTH_SHORT).show();
-                        map.put(currentBeacon.getMinor(), false);
+                        connectCheckMap.put(currentBeacon.getMinor(), false);
                     }
                 }
             }
