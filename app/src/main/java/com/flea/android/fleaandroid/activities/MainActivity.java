@@ -1,8 +1,9 @@
 package com.flea.android.fleaandroid.activities;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -12,20 +13,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.flea.android.fleaandroid.Beacon.BeaconThread;
 import com.flea.android.fleaandroid.R;
 import com.flea.android.fleaandroid.utils.BaseActivity;
 import com.flea.android.fleaandroid.utils.MainDialog;
-import com.tistory.dwfox.dwrulerviewlibrary.view.DWRulerSeekbar;
 import com.tistory.dwfox.dwrulerviewlibrary.view.ScrollingValuePicker;
-
-import jp.wasabeef.blurry.Blurry;
+import com.flea.android.fleaandroid.utils.BaseApplicationClass;
 
 public class MainActivity
         extends BaseActivity
@@ -38,7 +38,8 @@ public class MainActivity
         }
     };
     private Boolean isFabOpen = false;
-    private TextView mTextViewDescription, mTextViewRecommend1, mTextViewRecommend2, mTextViewRecommend3;
+    private TextView mTextViewTitle, mTextViewDescription, mTextViewHashTags,
+            mTextViewRecommend1, mTextViewRecommend2, mTextViewRecommend3;
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -89,17 +90,19 @@ public class MainActivity
         final NavigationView leftNavigationView = findViewById(R.id.left_navigation);
         leftNavigationView.setNavigationItemSelectedListener(this);
 
-        TextView textViewTitle = findViewById(R.id.tv_main_title);
+        mTextViewTitle = findViewById(R.id.tv_main_title);
         mTextViewDescription = findViewById(R.id.tv_main_description);
-        TextView textViewHashTags = findViewById(R.id.tv_main_hash_tags);
-        textViewTitle.setText("우아한 형제들");
+        mTextViewHashTags = findViewById(R.id.tv_main_hash_tags);
+        /*
+        mTextViewTitle.setText("우아한 형제들");
         mTextViewDescription.setText("‘좋은 음식을 먹고 싶은 곳에서’ 라는\n" +
                 "비전 아래 배달의민족, 배민라이더스, 배민찬 등을 서비스하며 종합 ‘푸드테크’ 기업으로\n" +
                 "나아가고 있습니다.\n" +
                 "\n" +
                 "우리는 ‘구성원을 행복하게 만들면 행복한 구성원이 더 좋은 서비스를 만든다’ 는 믿음으로 성장의 중심에는 코드 덩어리가 아닌 \u0003가치를 만들고 스스로 가치를 높이며 일하는\n" +
                 "우아한 개발자들이 있습니다.");
-        textViewHashTags.setText("#개발 #디자인 #기획 #해커톤 #오픈소스");
+        mTextViewHashTags.setText("#개발 #디자인 #기획 #해커톤 #오픈소스");
+        */
 
         mTextViewRecommend1 = findViewById(R.id.tv_recommend_1);
         mTextViewRecommend2 = findViewById(R.id.tv_recommend_2);
@@ -136,6 +139,55 @@ public class MainActivity
         myScrollingValuePicker.setViewMultipleSize(0.9f);
         myScrollingValuePicker.setMaxValue(0, 10);
         myScrollingValuePicker.setValueTypeMultiple(1);
+
+        Handler handler = new Handler() {
+            public void handleMessage(Message msg) {
+                //database = FirebaseDatabase.getInstance();
+                //myRef = database.getReference("beacon");
+
+                //data.timer = msg.arg1;
+                //data.beacon = msg.arg2;
+                //data.map = (HashMap) msg.obj;
+
+                if (msg.arg1 < 0) {
+                    if (msg.arg2 == BaseApplicationClass.ALL_ESTIMOTE_BEACONS_MINOR[0]) {
+                        mTextViewTitle.setText("우아한 형제들");
+                        mTextViewDescription.setText("‘좋은 음식을 먹고 싶은 곳에서’ 라는\n" +
+                                "비전 아래 배달의민족, 배민라이더스, 배민찬 등을 서비스하며 종합 ‘푸드테크’ 기업으로\n" +
+                                "나아가고 있습니다.\n" +
+                                "\n" +
+                                "우리는 ‘구성원을 행복하게 만들면 행복한 구성원이 더 좋은 서비스를 만든다’ 는 믿음으로 성장의 중심에는 코드 덩어리가 아닌 \u0003가치를 만들고 스스로 가치를 높이며 일하는\n" +
+                                "우아한 개발자들이 있습니다.");
+                        mTextViewHashTags.setText("#개발 #디자인 #기획 #해커톤 #오픈소스");
+                    } else if (msg.arg2 == BaseApplicationClass.ALL_ESTIMOTE_BEACONS_MINOR[1]) {
+                        mTextViewTitle.setText("푸드테크");
+                        //TODO 스트링 정리
+                        mTextViewDescription.setText("외식 배달매장에 필요한 다양한 채널의 주문 조회\n" + "및 배달 대행 요청 서비스.\n" +
+                                "원터치로 신속, 정확하게 입력할 수 있는 POS 솔루션 입니다.\n\n" +
+                                "주문에서 배달까지 푸드테크 중개플랫폼으로 한방에 처리하고 관리합니다.\n" +
+                                "배달 POS와 연동되는 매장관리 Total 서비스를 스마트폰을 통해서 관리 할 수 있는,\n" +
+                                "사장님 전용 서비스를 제공합니다.");
+                        mTextViewHashTags.setText("#개발 #기획 #회계");
+
+                    } else if (msg.arg2 == BaseApplicationClass.ALL_ESTIMOTE_BEACONS_MINOR[2]) {
+                        mTextViewTitle.setText("마켓컬리");
+                        //TODO 스트링 정리
+                        mTextViewDescription.setText("마켓컬리는 맛있는 음식이 삶의 행복이라고\n" + "굳게 믿는 사람들끼리 뜻을 합쳐 만든 팀입니다.\n" +
+                                "비싼 식자재만이 좋은 음식일 것이라고 막연하게 생각하고 있는\n" +
+                                "소비자에게는 진짜 맛을 소개해드리고 싶었고, 뚝심 하나로 산골 오지에서\n" +
+                                "수십 년간 묵묵히 장을 담그는 명인, 시들어서 버릴지언정 무농약을 고집하는 농부에게는\n" +
+                                "안정적인 판매 활로를 찾아드리고 싶었습니다.\n");
+                        mTextViewHashTags.setText("#개발 #기획 #디자인");
+                    }
+                } else {
+                    //TODO firebase control
+                }
+
+                Log.e("LOG", msg.arg1 + " // " + msg.arg2 + " //  " + msg.obj.toString());
+            }
+        };
+
+        new BeaconThread(handler, this).start();
     }
 
     private void showFabChild() {

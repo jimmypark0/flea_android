@@ -1,6 +1,9 @@
 package com.flea.android.fleaandroid.utils;
 
 import android.app.Application;
+
+import com.estimote.sdk.Region;
+
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
@@ -8,6 +11,9 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
  */
 
 public class BaseApplicationClass extends Application {
+    public static final Region ALL_ESTIMOTE_BEACONS_REGION = new Region("rid", null, null, null);
+    public static final int ALL_ESTIMOTE_BEACONS_MINOR[] = {38547, 16501, 978};
+
     @Override
     public void onCreate() {
         super.onCreate();
