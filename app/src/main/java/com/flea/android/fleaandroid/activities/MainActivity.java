@@ -1,20 +1,20 @@
-package com.flea.android.fleaandroid;
+package com.flea.android.fleaandroid.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
+
+import com.flea.android.fleaandroid.R;
+import com.flea.android.fleaandroid.utils.BaseActivity;
 
 public class MainActivity
         extends BaseActivity
@@ -32,9 +32,11 @@ public class MainActivity
                 return true;
             case R.id.action_vibration:
                 Toast.makeText(getApplicationContext(), "Clicked 진 동", Toast.LENGTH_SHORT).show();
+                item.setTitle("진 동  X");
                 return true;
             case R.id.action_notification:
                 Toast.makeText(getApplicationContext(), "Clicked 알 림", Toast.LENGTH_SHORT).show();
+                item.setTitle("알 람 X");
                 return true;
         }
         return false;
@@ -67,6 +69,8 @@ public class MainActivity
 
         final NavigationView leftNavigationView = findViewById(R.id.left_navigation);
         leftNavigationView.setNavigationItemSelectedListener(this);
+
+
     }
 
     @Override

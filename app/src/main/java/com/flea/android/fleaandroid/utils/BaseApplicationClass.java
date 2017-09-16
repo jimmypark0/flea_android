@@ -1,4 +1,4 @@
-package com.flea.android.fleaandroid;
+package com.flea.android.fleaandroid.utils;
 
 import android.app.Application;
 

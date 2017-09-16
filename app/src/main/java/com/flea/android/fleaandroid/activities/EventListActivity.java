@@ -1,7 +1,9 @@
-package com.flea.android.fleaandroid;
+package com.flea.android.fleaandroid.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.flea.android.fleaandroid.R;
+import com.flea.android.fleaandroid.utils.BaseActivity;
 
 public class EventListActivity extends BaseActivity {
 

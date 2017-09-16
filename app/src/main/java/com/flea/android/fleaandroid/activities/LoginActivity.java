@@ -1,11 +1,12 @@
-package com.flea.android.fleaandroid;
+package com.flea.android.fleaandroid.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
 import com.estimote.sdk.SystemRequirementsChecker;
+import com.flea.android.fleaandroid.R;
+import com.flea.android.fleaandroid.utils.BaseActivity;
 
 public class LoginActivity extends BaseActivity {
 
