@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     android:padding="20dp"
     tools:context="com.flea.android.fleaandroid.LoginActivity">
 
@@ -15,14 +16,20 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_assignment_ind_black_24dp"
-            android:hint="아이디를 입력해주세요." />
+            android:drawablePadding="10dp"
+            android:drawableStart="@drawable/ic_assignment_ind_24dp"
+            android:hint="아이디를 입력해주세요."
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_lock_outline_black_24dp"
-            android:hint="비밀번호를 입력해주세요." />
+            android:drawablePadding="10dp"
+            android:drawableStart="@drawable/ic_lock_outline_24dp"
+            android:hint="비밀번호를 입력해주세요."
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
 
         <Button
             android:layout_width="wrap_content"
