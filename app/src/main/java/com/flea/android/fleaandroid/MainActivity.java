@@ -34,7 +34,7 @@ public class MainActivity extends BaseActivity {
         DatabaseReference myRef = database.getReference("message");
 
         myRef.setValue("Hello, World!");*/
-        
+
         //Firebase Read Example Source Code
         /*// Read from the database
         myRef.addValueEventListener(new ValueEventListener() {
